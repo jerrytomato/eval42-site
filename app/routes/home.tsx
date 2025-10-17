@@ -5,7 +5,7 @@ import { WistiaPlayer } from "@wistia/wistia-player-react";
 
 import { getCalApi } from "@calcom/embed-react";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Sell More SaaS Without Bullshit" },
     { name: "description", content: "Demo page with video + booking" },
@@ -14,7 +14,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   useEffect(() => {
-    (async function () {
+    (async function() {
       const cal = await getCalApi({ namespace: "grow" });
       cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
     })();
@@ -29,7 +29,7 @@ export default function Home() {
           </h1>
         </section>
 
-        <section id="video">
+        <section id="video" className="aspect-video w-full">
           <WistiaPlayer
             mediaId="6vhvx9otz9"
             aspect={16 / 9}
