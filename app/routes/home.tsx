@@ -7,8 +7,8 @@ import { getCalApi } from "@calcom/embed-react";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "Sell More SaaS Without Bullshit" },
-    { name: "description", content: "Demo page with video + booking" },
+    { title: "SaaS Growth Without the Bullshit" },
+    { name: "description", content: "A self-liquidating growth system that makes each new customer pay for themselves." },
   ];
 }
 
