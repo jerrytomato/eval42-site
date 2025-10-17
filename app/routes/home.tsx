@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <main className="flex flex-col items-center gap-10 mx-auto max-w-5xl">
+      <main className="flex flex-col items-center gap-10 px-3 md:p-0 mx-auto max-w-5xl">
         <section className="max-w-3xl text-center mt-10">
           <h1 className="text-3xl md:text-5xl font-black leading-tight">
             The Smart Founder's Secret to Wild and{" "}
