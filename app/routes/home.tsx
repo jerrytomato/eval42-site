@@ -44,7 +44,7 @@ export default function Home() {
             data-cal-namespace="grow"
             data-cal-link="liam-elliott/grow"
             data-cal-config='{"layout":"month_view"}'
-            className="btn-primary py-4 px-6"
+            className="btn-primary text-lg inline-flex items-center justify-center py-4 px-6 before:content-['👌'] before:mr-2 before:text-2xl before:leading-none"
           >
             Start Buying New Customers for Free
           </button>
