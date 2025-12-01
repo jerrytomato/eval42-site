@@ -7,11 +7,11 @@ import { getCalApi } from "@calcom/embed-react";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "SaaS Growth Without the Bullshit" },
+    { title: "Make More Money With the Capacity You Already Have | Eval 42" },
     {
       name: "description",
       content:
-        "A self-liquidating growth system that makes each new customer pay for themselves.",
+        "Unlock 30% more revenue without adding seats, staff, or capacity. Stop losing ready-to-pay buyers and make high-value bookings close themselves automatically.",
     },
   ];
 }
