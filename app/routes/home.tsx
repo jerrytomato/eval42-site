@@ -5,7 +5,7 @@ import { WistiaPlayer } from "@wistia/wistia-player-react";
 
 import { getCalApi } from "@calcom/embed-react";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "SaaS Growth Without the Bullshit" },
     {
@@ -18,29 +18,23 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   useEffect(() => {
-    (async function () {
+    (async function() {
       const cal = await getCalApi({ namespace: "grow" });
       cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
     })();
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <main className="flex flex-col items-center gap-10 px-3 md:p-0 mx-auto max-w-5xl">
-        <section className="max-w-3xl text-center mt-10">
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1 flex flex-col items-center justify-center gap-10 px-3 md:p-0 mx-auto max-w-5xl">
+        <section className="flex flex-col items-center gap-10 max-w-3xl text-center">
           <h1 className="text-3xl md:text-5xl font-black leading-tight">
             The Smart Founder's Secret to Wild and{" "}
             <span className="italic">Pain-Free</span> SaaS Growth
           </h1>
-        </section>
-
-        <section id="video" className="aspect-video w-full">
-          <WistiaPlayer
-            mediaId="6vhvx9otz9"
-            aspect={16 / 9}
-            playerColor="#111827"
-            controlsVisibleOnLoad
-          />
+          <h2 className="text-xl md:text-3xl leading-tight">
+            Something else that you could look at as being a really great benefit.
+          </h2>
         </section>
 
         <section id="booking" className="flex flex-col items-center">
@@ -55,7 +49,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="mt-12 border-t">
+      <footer className="absolute -bottom-0 w-full mt-12 border-t">
         <div className="mx-auto w-full max-w-5xl px-6 py-8 text-sm">
           © {new Date().getFullYear()} Eval 42 Innovation Forward
         </div>
