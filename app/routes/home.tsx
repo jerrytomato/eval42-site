@@ -49,7 +49,7 @@ export default function Home() {
           <ul className="flex flex-col gap-4 list-none text-base md:text-lg">
             <li className="flex items-start gap-2">
               <FaCheckCircle className="text-green-500 w-5 h-5 flex-shrink-0 mt-1" />
-              <span>Attract people who don’t flinch at higher pricing</span>
+              <span>Attract people who don’t flinch at high prices</span>
             </li>
 
             <li className="flex items-start gap-2">
