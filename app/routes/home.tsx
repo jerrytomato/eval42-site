@@ -75,7 +75,7 @@ export default function Home() {
             data-cal-link="liam-elliott/grow"
             data-cal-config='{"layout":"month_view"}'
             className="btn-primary text-sm md:text-lg inline-flex items-center justify-center py-4 px-6 before:content-['👌'] before:mr-2 before:text-2xl before:leading-none whitespace-nowrap"
-          >Start Stealing Back Your Revenue</button>
+          >Start Stealing Back Lost Revenue</button>
         </section>
       </main>
 
