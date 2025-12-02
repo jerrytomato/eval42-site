@@ -7,7 +7,7 @@ import { getCalApi } from "@calcom/embed-react";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "Make More Money With the Capacity You Already Have | Eval 42" },
+    { title: "Make More With the Capacity You Already Have | Eval 42" },
     {
       name: "description",
       content:
