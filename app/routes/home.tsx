@@ -29,7 +29,16 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center justify-center gap-10 px-3 md:px-0 mx-auto max-w-5xl">
         <section className="flex flex-col items-center gap-6 max-w-3xl text-center">
           <h1 className="text-3xl md:text-5xl font-black leading-tight">
-            You’re Sitting on 30% Untapped Revenue
+            You’re Sitting on 30%{" "}
+            <span className="relative inline-block">
+              Untapped
+              <span
+                className="absolute left-0 right-0 bottom-[-0.65em] md:bottom-[-0.45em] h-[28px] bg-no-repeat bg-[length:100%_28px]"
+                style={{ backgroundImage: "url('/squiggle.svg')" }}
+              />
+            </span>
+            {" "}
+            Revenue
           </h1>
           <h2 className="text-xl md:text-3xl leading-tight">
             Earn more from every booking.
