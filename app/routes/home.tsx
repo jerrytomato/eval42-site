@@ -5,7 +5,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import { getCalApi } from "@calcom/embed-react";
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "Make More With the Capacity You Already Have | Eval 42" },
     {
@@ -18,7 +18,7 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
   useEffect(() => {
-    (async function() {
+    (async function () {
       const cal = await getCalApi({ namespace: "grow" });
       cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
     })();
@@ -28,17 +28,16 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col items-center justify-center gap-10 px-3 md:px-0 mx-auto max-w-5xl">
         <section className="flex flex-col items-center gap-6 max-w-3xl text-center">
-          <h1 className="text-3xl md:text-5xl font-black leading-tight">
-            You’re Sitting on 30%{" "}
+          <h1 className="text-3xl md:text-5xl font-black leading-[1.5]">
+            You’re Working Twice as Hard for{" "}
             <span className="relative inline-block">
-              Untapped
+              Half
               <span
-                className="absolute left-0 right-0 bottom-[-0.65em] md:bottom-[-0.45em] h-[28px] bg-no-repeat bg-[length:100%_28px]"
+                className="absolute left-[-4px] right-[-4px] bottom-[-0.85em] md:bottom-[-0.45em] h-[55px] bg-no-repeat bg-[length:100%_55px]"
                 style={{ backgroundImage: "url('/squiggle.svg')" }}
               />
-            </span>
-            {" "}
-            Revenue
+            </span>{" "}
+            the Revenue
           </h1>
           <h2 className="text-xl md:text-3xl leading-tight">
             Earn more from every booking.
@@ -59,7 +58,9 @@ export default function Home() {
 
             <li className="flex items-start gap-2">
               <FaCheckCircle className="text-green-500 w-5 h-5 flex-shrink-0 mt-1" />
-              <span>Let high-value buyers close themselves with automated follow-up</span>
+              <span>
+                Let high-value buyers close themselves with automated follow-up
+              </span>
             </li>
 
             <li className="flex items-start gap-2">
@@ -75,7 +76,9 @@ export default function Home() {
             data-cal-link="liam-elliott/grow"
             data-cal-config='{"layout":"month_view"}'
             className="btn-primary text-sm md:text-lg inline-flex items-center justify-center py-4 px-6 before:content-['👌'] before:mr-2 before:text-2xl before:leading-none whitespace-nowrap"
-          >Start Stealing Back Lost Revenue</button>
+          >
+            Start Stealing Back Lost Revenue
+          </button>
         </section>
       </main>
 
