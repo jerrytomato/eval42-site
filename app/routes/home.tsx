@@ -40,7 +40,7 @@ export default function Home() {
             the Revenue
           </h1>
           <h2 className="text-xl md:text-3xl leading-tight">
-            Earn more from every booking.
+            Stop losing money on your best bookings.
           </h2>
         </section>
 
