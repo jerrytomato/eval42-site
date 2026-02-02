@@ -29,7 +29,7 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center justify-center gap-10 px-3 md:px-0 mx-auto max-w-5xl">
         <section className="flex flex-col items-center gap-6 max-w-3xl text-center">
           <h1 className="text-3xl md:text-5xl font-black leading-[1.5]">
-            You’re Working Twice as Hard for{" "}
+            Stop Working Twice as Hard for{" "}
             <span className="relative inline-block">
               Half
               <span
@@ -40,7 +40,7 @@ export default function Home() {
             the Revenue
           </h1>
           <h2 className="text-xl md:text-3xl leading-tight">
-            Stop losing money on your best bookings.
+            You're losing money on your best bookings.
           </h2>
         </section>
 
