@@ -22,19 +22,19 @@ body {
 .btn-primary {
   @apply bg-slate-900 text-white font-semibold rounded-md cursor-pointer;
   @apply transition-transform duration-150 ease-out;
-  box-shadow: 0 10px 30px rgba(11, 16, 33, 0.12);
+  box-shadow: none;
 }
 
 .btn-primary:hover {
   @apply scale-[1.01];
-  box-shadow: 0 14px 36px rgba(11, 16, 33, 0.18);
+  box-shadow: none;
 }
 
 .btn-secondary {
   @apply border border-slate-300 text-slate-900 font-semibold rounded-md cursor-pointer;
   @apply transition-transform duration-150 ease-out;
   background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 10px 30px rgba(11, 16, 33, 0.04);
+  box-shadow: none;
 }
 
 .btn-secondary:hover {
@@ -62,7 +62,7 @@ body {
 
 .card {
   @apply bg-white rounded-xl border border-slate-200 shadow-sm;
-  box-shadow: 0 14px 50px rgba(11, 16, 33, 0.08);
+  box-shadow: none;
 }
 
 .eyebrow {
@@ -75,5 +75,5 @@ body {
 
 .soft-panel {
   @apply bg-white/70 rounded-2xl border border-slate-200 backdrop-blur;
-  box-shadow: 0 20px 60px rgba(11, 16, 33, 0.07);
+  box-shadow: none;
 }
