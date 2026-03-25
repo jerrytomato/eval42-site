@@ -7,11 +7,11 @@ import { useIntersectionObserver } from "../utils/useIntersectionObserver";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Make More With the Capacity You Already Have | Eval 42" },
+    { title: "Stop Gambling the Business on Intuition | Eval 42" },
     {
       name: "description",
       content:
-        "Unlock 30% more revenue without adding seats, staff, or capacity. Stop losing ready-to-pay buyers and make high-value bookings close themselves automatically.",
+        "Model-driven simulations for high-ticket, capacity-constrained operations. See where scheduling, pricing, and allocation leak margin before you commit capital.",
     },
   ];
 }
