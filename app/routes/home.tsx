@@ -77,7 +77,7 @@ function useCountUp({
   return display;
 }
 
-type MetricType = "money" | "percent" | "flicker";
+type MetricType = "money" | "percent";
 
 type MetricDatum = {
   metric: string;
@@ -85,33 +85,37 @@ type MetricDatum = {
   subtext: string;
   type: MetricType;
   value: number;
+  animate?: boolean;
 };
 
 const metrics: MetricDatum[] = [
   {
-    metric: "$450k+",
-    label: "Identified annual leak",
-    subtext: "Typical loss in high-value, capacity-constrained services",
-    type: "money",
-    value: 450000,
-  },
-  {
-    metric: "14.2%",
-    label: "Recoverable peak capacity",
-    subtext: "Average yield gap in premium, limited-capacity offers",
+    metric: "95%",
+    label: "Asset time wasted annually",
+    subtext: "High-value capacity sits idle most of the year instead of earning.",
     type: "percent",
-    value: 14.2,
+    value: 95,
+    animate: true,
   },
   {
-    metric: "Instant",
-    label: "Decision confidence",
-    subtext: "Simulate the loss before you make the change",
-    type: "flicker",
-    value: 1,
+    metric: "23%",
+    label: "Capacity lost to no-shows",
+    subtext: "Booked capacity expires because no-shows aren’t predicted or backfilled fast enough.",
+    type: "percent",
+    value: 23,
+    animate: true,
+  },
+  {
+    metric: "$100k+",
+    label: "Revenue at risk per decision",
+    subtext: "Each pricing or allocation guess on a limited asset can burn six figures without prior modeling.",
+    type: "money",
+    value: 100000,
+    animate: false,
   },
 ];
 
-function MetricCard({ metric, label, subtext, type, value }: MetricDatum) {
+function MetricCard({ metric, label, subtext, type, value, animate }: MetricDatum) {
   const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.8,
     once: true,
@@ -122,16 +126,20 @@ function MetricCard({ metric, label, subtext, type, value }: MetricDatum) {
       return (v: number) => `$${Math.round(v / 1000)}k+`;
     }
     if (type === "percent") {
-      return (v: number) => `${v.toFixed(1)}%`;
+      return (v: number) => `${v.toFixed(0)}%`;
     }
-    return () => "Instant";
+    return () => "";
   }, [type]);
 
-  const display = useCountUp({
-    target: type === "flicker" ? 0 : value,
-    format: type === "flicker" ? () => "Instant" : formatter,
-    shouldStart: type === "flicker" ? false : isIntersecting,
-  });
+  const formattedTarget = formatter(value);
+
+  const display = animate
+    ? useCountUp({
+      target: value,
+      format: formatter,
+      shouldStart: isIntersecting,
+    })
+    : formattedTarget;
 
   return (
     <article
