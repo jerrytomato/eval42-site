@@ -165,12 +165,12 @@ export default function Home() {
         <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-4 md:mt-6 lg:mt-10">
           <div className="soft-panel p-8 md:p-12 flex flex-col gap-12">
             <div className="flex flex-col gap-6 max-w-3xl">
-              <span className="eyebrow">Revenue design consultancy</span>
+              <span className="eyebrow">When every $100k decision falls back on you</span>
               <h1 className="text-3xl md:text-5xl font-black leading-[1.2] text-slate-900">
-                Stop leaking revenue in daily decisions
+                Your intuition is hurting the business
               </h1>
               <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
-                I model your business so you can see what happens before you change pricing, scheduling, or allocation—no more guessing or paying to find out.
+                High-value scheduling and allocation choices are too complex to make by feel. See the financial impact before the losses become your responsibility.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <button
@@ -179,13 +179,13 @@ export default function Home() {
                   data-cal-config='{"layout":"month_view"}'
                   className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
                 >
-                  Book a decision model walkthrough
+                  See where you're losing
                 </button>
                 <a
                   href="#how"
                   className="btn-secondary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
                 >
-                  See 12-week plan (fast walk-through)
+                  The 12-week margin recovery plan
                 </a>
               </div>
               <p className="text-sm text-slate-600">High-ticket, capacity-constrained ($2k–$50k+ per transaction). See the loss before you make it.</p>
@@ -217,7 +217,7 @@ export default function Home() {
         >
           <div className="card p-6 md:p-10 lg:p-12 flex flex-col gap-8">
             <div className="max-w-4xl">
-              <span className="eyebrow">How we reclaim lost revenue</span>
+              <span className="eyebrow">How we reclaim lost margin</span>
               <h2 className="text-2xl md:text-3xl font-bold mt-2 text-slate-900">3 moves, 12 weeks, measurable lift</h2>
               <p className="text-slate-700 mt-2">We make the daily, high-value decisions visible—so you stop losing money on pricing, scheduling, allocation, and follow-up guesswork.</p>
             </div>
@@ -253,7 +253,7 @@ export default function Home() {
                 data-cal-config='{"layout":"month_view"}'
                 className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
               >
-                Book now
+                See where you're losing
               </button>
             </div>
           </div>
@@ -261,12 +261,12 @@ export default function Home() {
       </main>
 
       <footer className="w-full border-t border-slate-200 bg-white/70 backdrop-blur">
-          <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-slate-700 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
-            <span>© {new Date().getFullYear()} Eval 42</span>
-            <div className="flex flex-wrap gap-4 items-center">
-              <span className="text-slate-500">Global • Remote</span>
-            </div>
+        <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-slate-700 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+          <span>© {new Date().getFullYear()} Eval 42</span>
+          <div className="flex flex-wrap gap-4 items-center">
+            <span className="text-slate-500">Global • Remote</span>
           </div>
+        </div>
       </footer>
     </div>
   );
