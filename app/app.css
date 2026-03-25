@@ -8,53 +8,42 @@
 }
 
 :root {
-  --ink: #0b1021;
-  --paper: #f7f3ed;
-  --brass: #d6a86a;
+  --ink: #0f172a;
+  --paper: #f8fafc;
+  --brass: #e5e7eb;
 }
 
 html,
 body {
-  background: var(--paper, #f7f3ed);
-  color: var(--ink, #0b1021);
+  background: var(--paper, #f8fafc);
+  color: var(--ink, #0f172a);
   scroll-behavior: smooth;
 }
 
 .btn-primary {
   @apply bg-slate-900 text-white font-semibold cursor-pointer;
-  @apply transition-transform duration-150 ease-out;
-  box-shadow: none;
-}
-
-.btn-primary:hover {
-  @apply scale-[1.01];
   box-shadow: none;
 }
 
 .btn-secondary {
   @apply border border-slate-300 text-slate-900 font-semibold cursor-pointer;
-  @apply transition-transform duration-150 ease-out;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: none;
-}
-
-.btn-secondary:hover {
-  @apply scale-[1.01];
 }
 
 .page-shell {
   position: relative;
   isolation: isolate;
-  background: radial-gradient(circle at 15% 20%, rgba(214, 168, 106, 0.16), transparent 30%),
-    radial-gradient(circle at 80% 0%, rgba(61, 111, 255, 0.08), transparent 28%),
-    var(--paper, #f7f3ed);
+  background: radial-gradient(circle at 15% 20%, rgba(148, 163, 184, 0.16), transparent 30%),
+    radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.08), transparent 28%),
+    var(--paper, #f8fafc);
 }
 
 .page-shell::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(120deg, rgba(11, 16, 33, 0.04) 0%, transparent 22%, rgba(11, 16, 33, 0.04) 44%, transparent 66%, rgba(11, 16, 33, 0.04) 88%);
+  background-image: linear-gradient(120deg, rgba(15, 23, 42, 0.04) 0%, transparent 22%, rgba(15, 23, 42, 0.04) 44%, transparent 66%, rgba(15, 23, 42, 0.04) 88%);
   opacity: 0.45;
   mix-blend-mode: multiply;
   pointer-events: none;
@@ -75,17 +64,8 @@ body {
 }
 
 .metric-card {
-  @apply rounded-none border border-slate-300 bg-white;
-}
-
-.metric-card {
-  transition: all 0.2s ease-in-out;
-  will-change: transform;
-}
-
-.metric-card:hover {
-  transform: translateY(-4px);
-  border-color: #0b1021;
+  @apply rounded-none border border-slate-200 bg-white;
+  transition: none;
 }
 
 .soft-panel {
