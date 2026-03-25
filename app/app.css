@@ -74,6 +74,20 @@ body {
   @apply text-4xl font-bold text-slate-900;
 }
 
+.metric-card {
+  @apply rounded-none border border-slate-300 bg-white;
+}
+
+.metric-card {
+  transition: all 0.2s ease-in-out;
+  will-change: transform;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  border-color: #0b1021;
+}
+
 .soft-panel {
   @apply bg-white/70 rounded-2xl border border-slate-200 backdrop-blur;
   box-shadow: none;

@@ -1,9 +1,9 @@
 // app/routes/home.tsx
 import type { Route } from "./+types/home";
-import { useEffect } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { getCalApi } from "@calcom/embed-react";
+import { useIntersectionObserver } from "../utils/useIntersectionObserver";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -21,6 +21,127 @@ function LogoMark() {
     <span className="inline-flex self-start items-center bg-slate-900 text-white px-2.5 py-1.5 md:px-3 md:py-2 font-mono text-sm md:text-base font-semibold tracking-tight border border-slate-800">
       eval(42)
     </span>
+  );
+}
+
+function easeOut(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function useCountUp({
+  target,
+  duration = 800,
+  format,
+  shouldStart,
+  flickerWords,
+}: {
+  target: number;
+  duration?: number;
+  format: (value: number) => string;
+  shouldStart: boolean;
+  flickerWords?: string[];
+}) {
+  const [display, setDisplay] = useState(() => format(target));
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (!shouldStart || startedRef.current) return;
+    startedRef.current = true;
+
+    const start = performance.now();
+    const step = (now: number) => {
+      const elapsed = now - start;
+      const t = Math.min(1, elapsed / duration);
+      const eased = easeOut(t);
+      const current = target * eased;
+      setDisplay(format(current));
+
+      if (flickerWords && flickerWords.length > 0 && t < 1) {
+        const idx = Math.min(
+          flickerWords.length - 1,
+          Math.floor((t * flickerWords.length * 1.2) % flickerWords.length),
+        );
+        setDisplay(flickerWords[idx]);
+      }
+
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        setDisplay(format(target));
+      }
+    };
+
+    requestAnimationFrame(step);
+  }, [duration, format, shouldStart, target, flickerWords]);
+
+  return display;
+}
+
+type MetricType = "money" | "percent" | "flicker";
+
+type MetricDatum = {
+  metric: string;
+  label: string;
+  subtext: string;
+  type: MetricType;
+  value: number;
+};
+
+const metrics: MetricDatum[] = [
+  {
+    metric: "$450k+",
+    label: "Identified annual leak",
+    subtext: "Typical loss in $20k/unit charter models",
+    type: "money",
+    value: 450000,
+  },
+  {
+    metric: "14.2%",
+    label: "Recoverable peak capacity",
+    subtext: "Average yield gap in high-ticket aviation",
+    type: "percent",
+    value: 14.2,
+  },
+  {
+    metric: "Instant",
+    label: "Decision confidence",
+    subtext: "Simulate the loss before you make the change",
+    type: "flicker",
+    value: 1,
+  },
+];
+
+function MetricCard({ metric, label, subtext, type, value }: MetricDatum) {
+  const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
+    threshold: 0.8,
+    once: true,
+  });
+
+  const formatter = useMemo(() => {
+    if (type === "money") {
+      return (v: number) => `$${Math.round(v / 1000)}k+`;
+    }
+    if (type === "percent") {
+      return (v: number) => `${v.toFixed(1)}%`;
+    }
+    return () => "Instant";
+  }, [type]);
+
+  const display = useCountUp({
+    target: type === "flicker" ? 0 : value,
+    format: type === "flicker" ? () => "Instant" : formatter,
+    shouldStart: type === "flicker" ? false : isIntersecting,
+  });
+
+  return (
+    <article
+      ref={ref}
+      className="card metric-card p-6 pb-8 flex flex-col gap-3 h-full text-left"
+    >
+      <div className="text-4xl md:text-5xl font-extrabold text-slate-900">{display}</div>
+      <p className="text-base font-semibold text-slate-900 leading-relaxed">{label}</p>
+      <p className="text-sm text-slate-600 leading-relaxed min-h-[44px]">{subtext}</p>
+    </article>
   );
 }
 
@@ -83,23 +204,10 @@ export default function Home() {
         </section>
 
         <section aria-labelledby="proof" className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl" id="proof">
-          <div className="grid md:grid-cols-3 gap-6">
-            {["-38% wasted capacity", "+19% per booking", "2.3x faster decisions"].map(
-              (headline, idx) => (
-                <article key={idx} className="card p-6 flex flex-col gap-3">
-                  <div className="metric text-slate-900">
-                    {headline.split(" ")[0]}
-                  </div>
-                  <p className="text-base text-slate-700 leading-relaxed">
-                    {headline.replace(headline.split(" ")[0] + " ", "")}
-                  </p>
-                  <div className="flex items-center gap-2 text-sm text-slate-500">
-                    <FaCheckCircle className="text-green-500 w-4 h-4" />
-                    Verified across recent client launches
-                  </div>
-                </article>
-              ),
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {metrics.map((item, idx) => (
+              <MetricCard key={idx} {...item} />
+            ))}
           </div>
         </section>
 
