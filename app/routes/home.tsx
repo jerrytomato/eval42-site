@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useIntersectionObserver } from "../utils/useIntersectionObserver";
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "Make More With the Capacity You Already Have | Eval 42" },
     {
@@ -33,13 +33,11 @@ function useCountUp({
   duration = 800,
   format,
   shouldStart,
-  flickerWords,
 }: {
   target: number;
   duration?: number;
   format: (value: number) => string;
   shouldStart: boolean;
-  flickerWords?: string[];
 }) {
   const [display, setDisplay] = useState(() => format(target));
   const startedRef = useRef(false);
@@ -56,14 +54,6 @@ function useCountUp({
       const current = target * eased;
       setDisplay(format(current));
 
-      if (flickerWords && flickerWords.length > 0 && t < 1) {
-        const idx = Math.min(
-          flickerWords.length - 1,
-          Math.floor((t * flickerWords.length * 1.2) % flickerWords.length),
-        );
-        setDisplay(flickerWords[idx]);
-      }
-
       if (t < 1) {
         requestAnimationFrame(step);
       } else {
@@ -72,7 +62,7 @@ function useCountUp({
     };
 
     requestAnimationFrame(step);
-  }, [duration, format, shouldStart, target, flickerWords]);
+  }, [duration, format, shouldStart, target]);
 
   return display;
 }
@@ -92,7 +82,8 @@ const metrics: MetricDatum[] = [
   {
     metric: "95%",
     label: "Asset time wasted annually",
-    subtext: "High-value capacity sits idle most of the year instead of earning.",
+    subtext:
+      "High-value capacity sits idle most of the year instead of earning.",
     type: "percent",
     value: 95,
     animate: true,
@@ -100,7 +91,8 @@ const metrics: MetricDatum[] = [
   {
     metric: "23%",
     label: "Capacity lost to no-shows",
-    subtext: "Booked capacity expires because no-shows aren’t predicted or backfilled fast enough.",
+    subtext:
+      "Booked capacity expires because no-shows aren’t predicted or backfilled fast enough.",
     type: "percent",
     value: 23,
     animate: true,
@@ -108,41 +100,22 @@ const metrics: MetricDatum[] = [
   {
     metric: "$100k+",
     label: "Revenue at risk per decision",
-    subtext: "Each pricing or allocation guess on a limited asset can burn six figures without prior modeling.",
+    subtext:
+      "Each pricing or allocation guess on a limited asset can burn six figures without prior modeling.",
     type: "money",
     value: 100000,
     animate: false,
   },
 ];
 
-type Step = {
-  title: string;
-  subhead: string;
-  body: string;
-};
-
-const steps: Step[] = [
-  {
-    title: "Uncover",
-    subhead: "Stop the bleeding",
-    body:
-      "We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days.",
-  },
-  {
-    title: "Twin",
-    subhead: "Predict the future",
-    body:
-      "We build a digital twin to stress-test your next 12 months. See the impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error.",
-  },
-  {
-    title: "Scale",
-    subhead: "Capture the growth",
-    body:
-      "Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you.",
-  },
-];
-
-function MetricCard({ metric, label, subtext, type, value, animate }: MetricDatum) {
+function MetricCard({
+  metric,
+  label,
+  subtext,
+  type,
+  value,
+  animate = false,
+}: MetricDatum) {
   const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.8,
     once: true,
@@ -162,10 +135,10 @@ function MetricCard({ metric, label, subtext, type, value, animate }: MetricDatu
 
   const display = animate
     ? useCountUp({
-      target: value,
-      format: formatter,
-      shouldStart: isIntersecting,
-    })
+        target: value,
+        format: formatter,
+        shouldStart: isIntersecting,
+      })
     : formattedTarget;
 
   return (
@@ -173,27 +146,32 @@ function MetricCard({ metric, label, subtext, type, value, animate }: MetricDatu
       ref={ref}
       className="card metric-card p-6 pb-8 flex flex-col gap-3 h-full text-left"
     >
-      <div className="text-4xl md:text-5xl font-extrabold text-slate-900">{display}</div>
-      <p className="text-base font-semibold text-slate-900 leading-relaxed">{label}</p>
-      <p className="text-sm text-slate-600 leading-relaxed min-h-[44px]">{subtext}</p>
+      <div className="text-4xl md:text-5xl font-extrabold text-slate-900">
+        {display}
+      </div>
+      <p className="text-base font-semibold text-slate-900 leading-relaxed">
+        {label}
+      </p>
+      <p className="text-sm text-slate-600 leading-relaxed min-h-[44px]">
+        {subtext}
+      </p>
     </article>
   );
 }
 
-function StepCard({
-  index,
-  title,
-  subhead,
-  body,
-}: {
+type StepCardProps = {
   index: number;
   title: string;
   subhead: string;
   body: string;
-}) {
+};
+
+function StepCard({ index, title, subhead, body }: StepCardProps) {
   return (
     <div className="bg-white border border-slate-200 rounded-lg p-5 lg:p-6 flex flex-col gap-3">
-      <div className="text-sm font-semibold text-slate-900">{index}. {title}</div>
+      <div className="text-sm font-semibold text-slate-900">
+        {index}. {title}
+      </div>
       <div className="text-sm font-semibold text-slate-800">{subhead}</div>
       <p className="text-sm text-slate-700 leading-relaxed">{body}</p>
     </div>
@@ -202,9 +180,13 @@ function StepCard({
 
 export default function Home() {
   useEffect(() => {
-    (async function() {
+    (async function () {
       const cal = await getCalApi({ namespace: "grow" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view", theme: "light" });
+      cal("ui", {
+        hideEventTypeDetails: false,
+        layout: "month_view",
+        theme: "light",
+      });
     })();
   }, []);
 
@@ -220,12 +202,16 @@ export default function Home() {
         <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-4 md:mt-6 lg:mt-10">
           <div className="soft-panel p-8 md:p-12 flex flex-col gap-12">
             <div className="flex flex-col gap-6 max-w-3xl">
-              <span className="eyebrow">When every $100k decision falls back on you</span>
+              <span className="eyebrow">
+                When every $100k decision falls back on you
+              </span>
               <h1 className="text-3xl md:text-5xl font-black leading-[1.2] text-slate-900">
                 Your intuition is hurting the business
               </h1>
               <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
-                High-value scheduling and allocation choices are too complex to make by feel. See the financial impact before the losses become your responsibility.
+                High-value scheduling and allocation choices are too complex to
+                make by feel. See the financial impact before the losses become
+                your responsibility.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <button
@@ -243,22 +229,39 @@ export default function Home() {
                   The 12-week margin recovery plan
                 </a>
               </div>
-              <p className="text-sm text-slate-600">For high-ticket, capacity-constrained businesses ($2k–$50k+ per transaction). See the loss before you live it.</p>
+              <p className="text-sm text-slate-600">
+                For high-ticket, capacity-constrained businesses ($2k–$50k+ per
+                transaction). See the loss before you live it.
+              </p>
             </div>
             <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
               <span className="eyebrow text-[11px]">Trusted by teams in</span>
               <div className="flex flex-wrap gap-3 text-slate-800">
-                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">Private Jet Charters</span>
-                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">Yacht Charters</span>
-                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">Imaging Clinics</span>
-                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">Executive Health</span>
-                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">Luxury Travel</span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Private Jet Charters
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Yacht Charters
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Imaging Clinics
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Executive Health
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Luxury Travel
+                </span>
               </div>
             </div>
           </div>
         </section>
 
-        <section aria-labelledby="proof" className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl" id="proof">
+        <section
+          aria-labelledby="proof"
+          className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl"
+          id="proof"
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {metrics.map((item, idx) => (
               <MetricCard key={idx} {...item} />
@@ -266,15 +269,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section
-          id="how"
-          className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl"
-        >
+        <section id="how" className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl">
           <div className="card p-6 md:p-10 lg:p-12 flex flex-col gap-8">
             <div className="max-w-4xl">
               <span className="eyebrow">How we reclaim lost margin</span>
-              <h2 className="text-2xl md:text-3xl font-bold mt-2 text-slate-900">3 moves, 12 weeks, measurable lift</h2>
-              <p className="text-slate-700 mt-2">We replace gut-feel forecasting with Uber-grade, model-driven simulations so you price and allocate scarce capacity before committing a dollar of capital.</p>
+              <h2 className="text-2xl md:text-3xl font-bold mt-2 text-slate-900">
+                3 moves, 12 weeks, measurable lift
+              </h2>
+              <p className="text-slate-700 mt-2">
+                We replace gut-feel forecasting with Uber-grade, model-driven
+                simulations so you price and allocate scarce capacity before
+                committing a dollar of capital.
+              </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               <StepCard
@@ -296,16 +302,26 @@ export default function Home() {
                 body="Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."
               />
             </div>
-            <p className="text-sm text-slate-600">Hard-coded operational logic for decisions where gut feel is an unacceptable expense.</p>
+            <p className="text-sm text-slate-600">
+              Hard-coded operational logic for decisions where gut feel is an
+              unacceptable expense.
+            </p>
           </div>
         </section>
 
-        <section id="booking" className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl">
+        <section
+          id="booking"
+          className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl"
+        >
           <div className="soft-panel p-10 md:p-12 flex flex-col gap-6 md:gap-8 items-start md:items-center md:text-center">
             <span className="eyebrow">Ready when you are</span>
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900">Stop gambling your reputation on guesses</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-slate-900">
+              Stop gambling your reputation on guesses
+            </h3>
             <p className="text-base md:text-lg text-slate-700 max-w-3xl">
-              High-value operational choices are too complex to manage by intuition alone. We’ll show exactly where your current process is leaking margin and the model-driven moves that recover it fastest.
+              High-value operational choices are too complex to manage by
+              intuition alone. We’ll show exactly where your current process is
+              leaking margin and the model-driven moves that recover it fastest.
             </p>
             <div className="flex flex-col gap-4 items-stretch md:items-center text-center">
               <button
@@ -316,7 +332,9 @@ export default function Home() {
               >
                 Find your hidden wins
               </button>
-              <p className="text-sm text-slate-700 max-w-3xl">No data prep or homework required.</p>
+              <p className="text-sm text-slate-700 max-w-3xl">
+                No data prep or homework required.
+              </p>
             </div>
           </div>
         </section>

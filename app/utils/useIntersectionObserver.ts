@@ -10,19 +10,16 @@ export function useIntersectionObserver<T extends HTMLElement>(
     const target = ref.current;
     if (!target) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIntersecting(true);
-          if (options.once) {
-            observer.disconnect();
-          }
-        } else if (!options.once) {
-          setIntersecting(false);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIntersecting(true);
+        if (options.once) {
+          observer.disconnect();
         }
-      },
-      options,
-    );
+      } else if (!options.once) {
+        setIntersecting(false);
+      }
+    }, options);
 
     observer.observe(target);
     return () => observer.disconnect();
