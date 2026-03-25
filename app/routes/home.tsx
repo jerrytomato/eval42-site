@@ -115,6 +115,33 @@ const metrics: MetricDatum[] = [
   },
 ];
 
+type Step = {
+  title: string;
+  subhead: string;
+  body: string;
+};
+
+const steps: Step[] = [
+  {
+    title: "Uncover",
+    subhead: "Stop the bleeding",
+    body:
+      "We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days.",
+  },
+  {
+    title: "Twin",
+    subhead: "Predict the future",
+    body:
+      "We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error.",
+  },
+  {
+    title: "Scale",
+    subhead: "Capture the growth",
+    body:
+      "Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you.",
+  },
+];
+
 function MetricCard({ metric, label, subtext, type, value, animate }: MetricDatum) {
   const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.8,
@@ -153,6 +180,26 @@ function MetricCard({ metric, label, subtext, type, value, animate }: MetricDatu
   );
 }
 
+function StepCard({
+  index,
+  title,
+  subhead,
+  body,
+}: {
+  index: number;
+  title: string;
+  subhead: string;
+  body: string;
+}) {
+  return (
+    <div className="bg-white border border-slate-200 rounded-lg p-5 lg:p-6 flex flex-col gap-3">
+      <div className="text-sm font-semibold text-slate-900">{index}. {title}</div>
+      <div className="text-sm font-semibold text-slate-800">{subhead}</div>
+      <p className="text-sm text-slate-700 leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
 export default function Home() {
   useEffect(() => {
     (async function() {
@@ -187,7 +234,7 @@ export default function Home() {
                   data-cal-config='{"layout":"month_view"}'
                   className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
                 >
-                  See where you're losing
+                  See where you're losing money
                 </button>
                 <a
                   href="#how"
@@ -230,25 +277,24 @@ export default function Home() {
               <p className="text-slate-700 mt-2">We replace gut-feel forecasting with Uber-grade, model-driven simulations so you price and allocate scarce capacity before committing a dollar of capital.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {["Uncover", "Twin", "Scale"].map((label, idx) => (
-                <div key={label} className="bg-white border border-slate-200 rounded-lg p-5 lg:p-6 flex flex-col gap-3">
-                  <div className="text-sm font-semibold text-slate-900">{idx + 1}. {label}</div>
-                  <div className="text-sm font-semibold text-slate-800">
-                    {label === "Uncover"
-                      ? "Stop the bleeding"
-                      : label === "Twin"
-                        ? "Predict the future"
-                        : "Capture the growth"}
-                  </div>
-                  <p className="text-sm text-slate-700 leading-relaxed">
-                    {label === "Uncover"
-                      ? "We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days."
-                      : label === "Twin"
-                        ? "We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
-                        : "Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."}
-                  </p>
-                </div>
-              ))}
+              <StepCard
+                index={1}
+                title="Uncover"
+                subhead="Stop the bleeding"
+                body="We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days."
+              />
+              <StepCard
+                index={2}
+                title="Twin"
+                subhead="Predict the future"
+                body="We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
+              />
+              <StepCard
+                index={3}
+                title="Scale"
+                subhead="Capture the growth"
+                body="Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."
+              />
             </div>
             <p className="text-sm text-slate-600">Hard-coded operational logic for $100k decisions where gut feel is an unacceptable expense.</p>
           </div>
