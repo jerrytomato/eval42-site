@@ -91,14 +91,14 @@ const metrics: MetricDatum[] = [
   {
     metric: "$450k+",
     label: "Identified annual leak",
-    subtext: "Typical loss in $20k/unit charter models",
+    subtext: "Typical loss in high-value, capacity-constrained services",
     type: "money",
     value: 450000,
   },
   {
     metric: "14.2%",
     label: "Recoverable peak capacity",
-    subtext: "Average yield gap in high-ticket aviation",
+    subtext: "Average yield gap in premium, limited-capacity offers",
     type: "percent",
     value: 14.2,
   },
@@ -177,13 +177,13 @@ export default function Home() {
                   data-cal-namespace="grow"
                   data-cal-link="liam-elliott/grow"
                   data-cal-config='{"layout":"month_view"}'
-                  className="btn-primary text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
+                  className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
                 >
                   Book a decision model walkthrough
                 </button>
                 <a
                   href="#how"
-                  className="btn-secondary text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
+                  className="btn-secondary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
                 >
                   See 12-week plan (fast walk-through)
                 </a>
@@ -256,19 +256,17 @@ export default function Home() {
                 Book now
               </button>
             </div>
-            <p className="text-sm text-slate-600">Calendly alternative powered by Cal.com • Timezone-aware • 25 min</p>
           </div>
         </section>
       </main>
 
       <footer className="w-full border-t border-slate-200 bg-white/70 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-slate-700 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
-          <span>© {new Date().getFullYear()} Eval 42</span>
-          <div className="flex flex-wrap gap-4 items-center">
-            <span className="text-slate-500">EST • Remote</span>
-            <a className="underline underline-offset-4" href="#proof">View recent outcomes</a>
+          <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-slate-700 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+            <span>© {new Date().getFullYear()} Eval 42</span>
+            <div className="flex flex-wrap gap-4 items-center">
+              <span className="text-slate-500">Global • Remote</span>
+            </div>
           </div>
-        </div>
       </footer>
     </div>
   );
