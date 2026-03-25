@@ -277,7 +277,7 @@ export default function Home() {
                 3 moves, 12 weeks, measurable lift
               </h2>
               <p className="text-slate-700 mt-2">
-                We replace gut-feel forecasting with Uber-grade, model-driven
+                We replace unmodeled assumptions with Uber-grade, model-driven
                 simulations so you price and allocate scarce capacity before
                 committing a dollar of capital.
               </p>
@@ -293,7 +293,7 @@ export default function Home() {
                 index={2}
                 title="Twin"
                 subhead="Predict the future"
-                body="We build a digital twin to stress-test your next 12 months. See the impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
+                body="We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without using your bank account as a crash test dummy."
               />
               <StepCard
                 index={3}
@@ -319,8 +319,8 @@ export default function Home() {
               Stop gambling your reputation on guesses
             </h3>
             <p className="text-base md:text-lg text-slate-700 max-w-3xl">
-              We’ll show exactly where your current process is leaking margin
-              and the model-driven moves that recover it fastest.
+              We’ll show exactly where your current process has blind spots that
+              leak margin and the model-driven moves that recover it fastest.
             </p>
             <div className="flex flex-col gap-4 items-stretch md:items-center text-center">
               <button
