@@ -227,23 +227,30 @@ export default function Home() {
             <div className="max-w-4xl">
               <span className="eyebrow">How we reclaim lost margin</span>
               <h2 className="text-2xl md:text-3xl font-bold mt-2 text-slate-900">3 moves, 12 weeks, measurable lift</h2>
-              <p className="text-slate-700 mt-2">We make the daily, high-value decisions visible—so you stop losing money on pricing, scheduling, allocation, and follow-up guesswork.</p>
+              <p className="text-slate-700 mt-2">We replace gut-feel forecasting with Uber-grade, model-driven simulations so you price and allocate scarce capacity before committing a dollar of capital.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {["Discovery", "Systems", "Scale"].map((label, idx) => (
+              {["Uncover", "Twin", "Scale"].map((label, idx) => (
                 <div key={label} className="bg-white border border-slate-200 rounded-lg p-5 lg:p-6 flex flex-col gap-3">
                   <div className="text-sm font-semibold text-slate-900">{idx + 1}. {label}</div>
+                  <div className="text-sm font-semibold text-slate-800">
+                    {label === "Uncover"
+                      ? "Stop the bleeding"
+                      : label === "Twin"
+                        ? "Predict the future"
+                        : "Capture the growth"}
+                  </div>
                   <p className="text-sm text-slate-700 leading-relaxed">
-                    {label === "Discovery"
-                      ? "Map revenue-critical decisions and underused capacity; build a lightweight model of demand, no-shows, timing."
-                      : label === "Systems"
-                        ? "Test pricing, scheduling, allocation, and follow-up changes in the model; see what’s quietly costing you money."
-                        : "Ship the winning decisions with scripts, playbooks, and guardrails; track results against the model."}
+                    {label === "Uncover"
+                      ? "We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days."
+                      : label === "Twin"
+                        ? "We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
+                        : "Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."}
                   </p>
                 </div>
               ))}
             </div>
-            <p className="text-sm text-slate-600">Not marketing, dashboards, or generic analytics—only the high-value decisions that drive revenue.</p>
+            <p className="text-sm text-slate-600">Hard-coded operational logic for $100k decisions where gut feel is an unacceptable expense.</p>
           </div>
         </section>
 
@@ -261,7 +268,7 @@ export default function Home() {
                 data-cal-config='{"layout":"month_view"}'
                 className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
               >
-                See where you're losing
+                See where you're losing money
               </button>
             </div>
           </div>
