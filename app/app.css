@@ -2,22 +2,88 @@
 
 @theme {
   --font-sans:
-    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  --ink: #0f172a;
+  --paper: #f8fafc;
+  --brass: #e5e7eb;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950 text-slate-900 dark:text-white;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  background: var(--paper, #f8fafc);
+  color: var(--ink, #0f172a);
+  scroll-behavior: smooth;
 }
 
 .btn-primary {
-  @apply bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-700 dark:hover:bg-slate-100;
-  @apply font-bold;
-  @apply rounded;
-  @apply cursor-pointer;
+  @apply bg-slate-900 text-white font-semibold cursor-pointer;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  @apply border border-slate-300 text-slate-900 font-semibold cursor-pointer;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: none;
+}
+
+.page-shell {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(148, 163, 184, 0.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(59, 130, 246, 0.08),
+      transparent 28%
+    ),
+    var(--paper, #f8fafc);
+}
+
+.page-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    120deg,
+    rgba(15, 23, 42, 0.04) 0%,
+    transparent 22%,
+    rgba(15, 23, 42, 0.04) 44%,
+    transparent 66%,
+    rgba(15, 23, 42, 0.04) 88%
+  );
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card {
+  @apply bg-white rounded-xl border border-slate-200 shadow-sm;
+  box-shadow: none;
+}
+
+.eyebrow {
+  @apply uppercase tracking-[0.2em] text-xs text-slate-500 font-medium;
+}
+
+.metric {
+  @apply text-4xl font-bold text-slate-900;
+}
+
+.metric-card {
+  @apply rounded-none border border-slate-200 bg-white;
+  transition: none;
+}
+
+.soft-panel {
+  @apply bg-white/70 rounded-2xl border border-slate-200 backdrop-blur;
+  box-shadow: none;
 }

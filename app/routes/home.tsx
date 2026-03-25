@@ -1,9 +1,9 @@
 // app/routes/home.tsx
 import type { Route } from "./+types/home";
-import { useEffect, useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { getCalApi } from "@calcom/embed-react";
+import { useIntersectionObserver } from "../utils/useIntersectionObserver";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -16,75 +16,336 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+function LogoMark() {
+  return (
+    <span className="inline-flex self-start items-center bg-slate-900 text-white px-2.5 py-1.5 md:px-3 md:py-2 font-mono text-sm md:text-base font-semibold tracking-tight border border-slate-800">
+      eval(42)
+    </span>
+  );
+}
+
+function easeOut(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function useCountUp({
+  target,
+  duration = 800,
+  format,
+  shouldStart,
+}: {
+  target: number;
+  duration?: number;
+  format: (value: number) => string;
+  shouldStart: boolean;
+}) {
+  const [display, setDisplay] = useState(() => format(target));
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (!shouldStart || startedRef.current) return;
+    startedRef.current = true;
+
+    const start = performance.now();
+    const step = (now: number) => {
+      const elapsed = now - start;
+      const t = Math.min(1, elapsed / duration);
+      const eased = easeOut(t);
+      const current = target * eased;
+      setDisplay(format(current));
+
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        setDisplay(format(target));
+      }
+    };
+
+    requestAnimationFrame(step);
+  }, [duration, format, shouldStart, target]);
+
+  return display;
+}
+
+type MetricType = "money" | "percent";
+
+type MetricDatum = {
+  metric: string;
+  label: string;
+  subtext: string;
+  type: MetricType;
+  value: number;
+  animate?: boolean;
+};
+
+const metrics: MetricDatum[] = [
+  {
+    metric: "95%",
+    label: "Asset time wasted annually",
+    subtext:
+      "High-value capacity sits idle most of the year instead of earning.",
+    type: "percent",
+    value: 95,
+    animate: true,
+  },
+  {
+    metric: "23%",
+    label: "Capacity lost to no-shows",
+    subtext:
+      "Booked capacity expires because no-shows aren’t predicted or backfilled fast enough.",
+    type: "percent",
+    value: 23,
+    animate: true,
+  },
+  {
+    metric: "$100k+",
+    label: "Revenue at risk per decision",
+    subtext:
+      "Each pricing or allocation guess on a limited asset can burn six figures without prior modeling.",
+    type: "money",
+    value: 100000,
+    animate: false,
+  },
+];
+
+function MetricCard({
+  metric,
+  label,
+  subtext,
+  type,
+  value,
+  animate = false,
+}: MetricDatum) {
+  const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
+    threshold: 0.8,
+    once: true,
+  });
+
+  const formatter = useMemo(() => {
+    if (type === "money") {
+      return (v: number) => `$${Math.round(v / 1000)}k+`;
+    }
+    if (type === "percent") {
+      return (v: number) => `${v.toFixed(0)}%`;
+    }
+    return () => "";
+  }, [type]);
+
+  const formattedTarget = formatter(value);
+
+  const display = animate
+    ? useCountUp({
+        target: value,
+        format: formatter,
+        shouldStart: isIntersecting,
+      })
+    : formattedTarget;
+
+  return (
+    <article
+      ref={ref}
+      className="card metric-card p-6 pb-8 flex flex-col gap-3 h-full text-left"
+    >
+      <div className="text-4xl md:text-5xl font-extrabold text-slate-900">
+        {display}
+      </div>
+      <p className="text-base font-semibold text-slate-900 leading-relaxed">
+        {label}
+      </p>
+      <p className="text-sm text-slate-600 leading-relaxed min-h-[44px]">
+        {subtext}
+      </p>
+    </article>
+  );
+}
+
+type StepCardProps = {
+  index: number;
+  title: string;
+  subhead: string;
+  body: string;
+};
+
+function StepCard({ index, title, subhead, body }: StepCardProps) {
+  return (
+    <div className="bg-white border border-slate-200 rounded-lg p-5 lg:p-6 flex flex-col gap-3">
+      <div className="text-sm font-semibold text-slate-900">
+        {index}. {title}
+      </div>
+      <div className="text-sm font-semibold text-slate-800">{subhead}</div>
+      <p className="text-sm text-slate-700 leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
 export default function Home() {
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: "grow" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+      cal("ui", {
+        hideEventTypeDetails: false,
+        layout: "month_view",
+        theme: "light",
+      });
     })();
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 flex flex-col items-center justify-center gap-10 px-3 md:px-0 mx-auto max-w-5xl">
-        <section className="flex flex-col items-center gap-6 max-w-3xl text-center">
-          <h1 className="text-3xl md:text-5xl font-black leading-[1.5]">
-            Stop Working Twice as Hard for{" "}
-            <span className="relative inline-block">
-              Half
-              <span
-                className="absolute left-[-4px] right-[-4px] bottom-[-0.85em] md:bottom-[-0.45em] h-[55px] bg-no-repeat bg-[length:100%_55px]"
-                style={{ backgroundImage: "url('/squiggle.svg')" }}
-              />
-            </span>{" "}
-            the Revenue
-          </h1>
-          <h2 className="text-xl md:text-3xl leading-tight">
-            You're losing money on your best bookings.
-          </h2>
-        </section>
-
-        <section id="listing">
-          <ul className="flex flex-col gap-4 list-none text-base md:text-lg">
-            <li className="flex items-start gap-2">
-              <FaCheckCircle className="text-green-500 w-5 h-5 flex-shrink-0 mt-1" />
-              <span>Attract people who don’t flinch at high prices</span>
-            </li>
-
-            <li className="flex items-start gap-2">
-              <FaCheckCircle className="text-green-500 w-5 h-5 flex-shrink-0 mt-1" />
-              <span>Stop losing customers who are ready to pay</span>
-            </li>
-
-            <li className="flex items-start gap-2">
-              <FaCheckCircle className="text-green-500 w-5 h-5 flex-shrink-0 mt-1" />
-              <span>
-                Let high-value buyers close themselves with automated follow-up
+    <div className="min-h-screen page-shell flex flex-col">
+      <div className="fixed top-4 left-4 z-50 hidden lg:block">
+        <LogoMark />
+      </div>
+      <div className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl pt-8 pb-1 flex justify-center block lg:hidden">
+        <LogoMark />
+      </div>
+      <main className="flex-1 w-full py-8 md:py-12 space-y-14 md:space-y-16">
+        <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-4 md:mt-6 lg:mt-10">
+          <div className="soft-panel p-8 md:p-12 flex flex-col gap-12">
+            <div className="flex flex-col gap-6 max-w-3xl">
+              <span className="eyebrow">
+                When every $100k decision falls back on you
               </span>
-            </li>
-
-            <li className="flex items-start gap-2">
-              <FaCheckCircle className="text-green-500 w-5 h-5 flex-shrink-0 mt-1" />
-              <span>Unlock premium add-on revenue</span>
-            </li>
-          </ul>
+              <h1 className="text-3xl md:text-5xl font-black leading-[1.2] text-slate-900">
+                Your intuition is hurting the business
+              </h1>
+              <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
+                High-value scheduling and allocation choices are too complex to
+                make by feel. See the financial impact before the losses become
+                your responsibility.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <button
+                  data-cal-namespace="grow"
+                  data-cal-link="liam-elliott/grow"
+                  data-cal-config='{"layout":"month_view","theme":"light"}'
+                  className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
+                >
+                  Find your hidden wins
+                </button>
+                <a
+                  href="#how"
+                  className="btn-secondary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
+                >
+                  The 12-week margin recovery plan
+                </a>
+              </div>
+              <p className="text-sm text-slate-600">
+                For high-ticket, capacity-constrained businesses ($2k–$50k+ per
+                transaction). See the loss before you live it.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
+              <span className="eyebrow text-[11px]">Trusted by teams in</span>
+              <div className="flex flex-wrap gap-3 text-slate-800">
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Private Jet Charters
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Yacht Charters
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Imaging Clinics
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Executive Health
+                </span>
+                <span className="px-3 py-2 bg-white rounded-full border border-slate-200">
+                  Luxury Travel
+                </span>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <section id="booking" className="flex flex-col items-center">
-          <button
-            data-cal-namespace="grow"
-            data-cal-link="liam-elliott/grow"
-            data-cal-config='{"layout":"month_view"}'
-            className="btn-primary text-sm md:text-lg inline-flex items-center justify-center py-4 px-6 before:content-['👌'] before:mr-2 before:text-2xl before:leading-none whitespace-nowrap"
-          >
-            Start Stealing Back Lost Revenue
-          </button>
+        <section
+          aria-labelledby="proof"
+          className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl"
+          id="proof"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {metrics.map((item, idx) => (
+              <MetricCard key={idx} {...item} />
+            ))}
+          </div>
+        </section>
+
+        <section id="how" className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl">
+          <div className="card p-6 md:p-10 lg:p-12 flex flex-col gap-8">
+            <div className="max-w-4xl">
+              <span className="eyebrow">How we reclaim lost margin</span>
+              <h2 className="text-2xl md:text-3xl font-bold mt-2 text-slate-900">
+                3 moves, 12 weeks, measurable lift
+              </h2>
+              <p className="text-slate-700 mt-2">
+                We replace gut-feel forecasting with Uber-grade, model-driven
+                simulations so you price and allocate scarce capacity before
+                committing a dollar of capital.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              <StepCard
+                index={1}
+                title="Uncover"
+                subhead="Stop the bleeding"
+                body="We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days."
+              />
+              <StepCard
+                index={2}
+                title="Twin"
+                subhead="Predict the future"
+                body="We build a digital twin to stress-test your next 12 months. See the impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
+              />
+              <StepCard
+                index={3}
+                title="Scale"
+                subhead="Capture the growth"
+                body="Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."
+              />
+            </div>
+            <p className="text-sm text-slate-600">
+              Hard-coded operational logic for decisions where gut feel is an
+              unacceptable expense.
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="booking"
+          className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl"
+        >
+          <div className="soft-panel p-10 md:p-12 flex flex-col gap-6 md:gap-8 items-start md:items-center md:text-center">
+            <span className="eyebrow">Ready when you are</span>
+            <h3 className="text-2xl md:text-3xl font-bold text-slate-900">
+              Stop gambling your reputation on guesses
+            </h3>
+            <p className="text-base md:text-lg text-slate-700 max-w-3xl">
+              High-value operational choices are too complex to manage by
+              intuition alone. We’ll show exactly where your current process is
+              leaking margin and the model-driven moves that recover it fastest.
+            </p>
+            <div className="flex flex-col gap-4 items-stretch md:items-center text-center">
+              <button
+                data-cal-namespace="grow"
+                data-cal-link="liam-elliott/grow"
+                data-cal-config='{"layout":"month_view","theme":"light"}'
+                className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
+              >
+                Find your hidden wins
+              </button>
+              <p className="text-sm text-slate-700 max-w-3xl">
+                No data prep or homework required.
+              </p>
+            </div>
+          </div>
         </section>
       </main>
 
-      <footer className="w-full border-t">
-        <div className="mx-auto max-w-5xl px-6 py-6 text-sm">
-          © {new Date().getFullYear()} Eval 42
+      <footer className="w-full border-t border-slate-200 bg-white/70 backdrop-blur">
+        <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-slate-700 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+          <span>© {new Date().getFullYear()} Eval 42</span>
+          <div className="flex flex-wrap gap-4 items-center">
+            <span className="text-slate-500">Global • Remote</span>
+          </div>
         </div>
       </footer>
     </div>
