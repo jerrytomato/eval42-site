@@ -319,9 +319,8 @@ export default function Home() {
               Stop gambling your reputation on guesses
             </h3>
             <p className="text-base md:text-lg text-slate-700 max-w-3xl">
-              High-value operational choices are too complex to manage by
-              intuition alone. We’ll show exactly where your current process is
-              leaking margin and the model-driven moves that recover it fastest.
+              We’ll show exactly where your current process is leaking margin
+              and the model-driven moves that recover it fastest.
             </p>
             <div className="flex flex-col gap-4 items-stretch md:items-center text-center">
               <button
