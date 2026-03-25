@@ -329,7 +329,7 @@ export default function Home() {
                 data-cal-config='{"layout":"month_view","theme":"light"}'
                 className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
               >
-                Find your hidden wins
+                Run the simulation on your margins
               </button>
               <p className="text-sm text-slate-700 max-w-3xl">
                 No data prep or homework required.
