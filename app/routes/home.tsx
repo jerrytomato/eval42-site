@@ -132,7 +132,7 @@ const steps: Step[] = [
     title: "Twin",
     subhead: "Predict the future",
     body:
-      "We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error.",
+      "We build a digital twin to stress-test your next 12 months. See the impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error.",
   },
   {
     title: "Scale",
@@ -204,7 +204,7 @@ export default function Home() {
   useEffect(() => {
     (async function() {
       const cal = await getCalApi({ namespace: "grow" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+      cal("ui", { hideEventTypeDetails: false, layout: "month_view", theme: "light" });
     })();
   }, []);
 
@@ -231,10 +231,10 @@ export default function Home() {
                 <button
                   data-cal-namespace="grow"
                   data-cal-link="liam-elliott/grow"
-                  data-cal-config='{"layout":"month_view"}'
+                  data-cal-config='{"layout":"month_view","theme":"light"}'
                   className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-4 px-6 gap-2"
                 >
-                  See where you're losing money
+                  Find your hidden wins
                 </button>
                 <a
                   href="#how"
@@ -243,7 +243,7 @@ export default function Home() {
                   The 12-week margin recovery plan
                 </a>
               </div>
-              <p className="text-sm text-slate-600">High-ticket, capacity-constrained ($2k–$50k+ per transaction). See the loss before you make it.</p>
+              <p className="text-sm text-slate-600">For high-ticket, capacity-constrained businesses ($2k–$50k+ per transaction). See the loss before you live it.</p>
             </div>
             <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
               <span className="eyebrow text-[11px]">Trusted by teams in</span>
@@ -287,7 +287,7 @@ export default function Home() {
                 index={2}
                 title="Twin"
                 subhead="Predict the future"
-                body="We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
+                body="We build a digital twin to stress-test your next 12 months. See the impact of a price shift or fleet expansion in seconds and pick the winning move without trial and error."
               />
               <StepCard
                 index={3}
@@ -296,26 +296,27 @@ export default function Home() {
                 body="Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."
               />
             </div>
-            <p className="text-sm text-slate-600">Hard-coded operational logic for $100k decisions where gut feel is an unacceptable expense.</p>
+            <p className="text-sm text-slate-600">Hard-coded operational logic for decisions where gut feel is an unacceptable expense.</p>
           </div>
         </section>
 
         <section id="booking" className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl">
-          <div className="soft-panel p-8 md:p-10 flex flex-col gap-4 items-start md:items-center md:text-center">
+          <div className="soft-panel p-10 md:p-12 flex flex-col gap-6 md:gap-8 items-start md:items-center md:text-center">
             <span className="eyebrow">Ready when you are</span>
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900">Book a decision model walkthrough</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-slate-900">Stop gambling your reputation on guesses</h3>
             <p className="text-base md:text-lg text-slate-700 max-w-3xl">
-              Bring your current flow and targets. We'll run your scenarios in the model and show where money leaks—and which small changes pay most—before you spend time or budget.
+              High-value operational choices are too complex to manage by intuition alone. We’ll show exactly where your current process is leaking margin and the model-driven moves that recover it fastest.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+            <div className="flex flex-col gap-4 items-stretch md:items-center text-center">
               <button
                 data-cal-namespace="grow"
                 data-cal-link="liam-elliott/grow"
-                data-cal-config='{"layout":"month_view"}'
+                data-cal-config='{"layout":"month_view","theme":"light"}'
                 className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
               >
-                See where you're losing money
+                Find your hidden wins
               </button>
+              <p className="text-sm text-slate-700 max-w-3xl">No data prep or homework required.</p>
             </div>
           </div>
         </section>
