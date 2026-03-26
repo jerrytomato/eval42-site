@@ -16,9 +16,16 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-function LogoMark() {
+type LogoVariant = "large" | "small";
+
+function LogoMark({ variant = "large" }: { variant?: LogoVariant }) {
+  const sizeClass =
+    variant === "small" ? "px-3 py-2 text-base" : "px-6 py-3.5 text-xl";
+
   return (
-    <span className="inline-flex self-start items-center bg-slate-900 text-white px-6 py-3.5 lg:px-3 lg:py-2 font-mono text-xl lg:text-base font-semibold tracking-tight border border-slate-800">
+    <span
+      className={`inline-flex self-start items-center bg-slate-900 text-white ${sizeClass} font-mono font-semibold tracking-tight border border-slate-800`}
+    >
       eval(42)
     </span>
   );
@@ -192,14 +199,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen page-shell flex flex-col">
-      <div className="fixed top-4 left-4 z-50 hidden lg:block">
+      <div className="fixed top-4 left-4 z-50 hidden 2xl:block">
+        <LogoMark variant="small" />
+      </div>
+      <div className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl pt-6 pb-6 flex justify-center block 2xl:hidden">
         <LogoMark />
       </div>
-      <div className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl pt-6 pb-2 flex justify-center block lg:hidden">
-        <LogoMark />
-      </div>
-      <main className="flex-1 w-full py-10 md:py-10 space-y-14 md:space-y-16">
-        <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-4 md:mt-4 lg:mt-10">
+      <main className="flex-1 w-full py-6 2xl:py-16 space-y-12 md:space-y-14">
+        <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-0">
           <div className="soft-panel p-8 md:p-12 flex flex-col gap-12">
             <div className="flex flex-col gap-6 max-w-3xl">
               <span className="eyebrow">
@@ -322,12 +329,12 @@ export default function Home() {
               We’ll show exactly where your current process has blind spots that
               leak margin and the model-driven moves that recover it fastest.
             </p>
-            <div className="flex flex-col gap-4 items-stretch md:items-center text-center">
+            <div className="flex flex-col gap-4 items-center text-center">
               <button
                 data-cal-namespace="grow"
                 data-cal-link="liam-elliott/grow"
                 data-cal-config='{"layout":"month_view","theme":"light"}'
-                className="btn-primary w-full sm:w-auto text-base md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
+                className="btn-primary w-full text-base md:w-auto md:text-lg inline-flex items-center justify-center py-3 px-6 gap-2"
               >
                 Run the simulation on your margins
               </button>
