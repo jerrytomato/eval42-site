@@ -18,7 +18,7 @@ export function meta({}: Route.MetaArgs) {
 
 function LogoMark() {
   return (
-    <span className="inline-flex self-start items-center bg-slate-900 text-white px-2.5 py-1.5 md:px-3 md:py-2 font-mono text-sm md:text-base font-semibold tracking-tight border border-slate-800">
+    <span className="inline-flex self-start items-center bg-slate-900 text-white px-6 py-3.5 lg:px-3 lg:py-2 font-mono text-xl lg:text-base font-semibold tracking-tight border border-slate-800">
       eval(42)
     </span>
   );
@@ -195,11 +195,11 @@ export default function Home() {
       <div className="fixed top-4 left-4 z-50 hidden lg:block">
         <LogoMark />
       </div>
-      <div className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl pt-8 pb-1 flex justify-center block lg:hidden">
+      <div className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl pt-6 pb-2 flex justify-center block lg:hidden">
         <LogoMark />
       </div>
-      <main className="flex-1 w-full py-8 md:py-12 space-y-14 md:space-y-16">
-        <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-4 md:mt-6 lg:mt-10">
+      <main className="flex-1 w-full py-10 md:py-10 space-y-14 md:space-y-16">
+        <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-4 md:mt-4 lg:mt-10">
           <div className="soft-panel p-8 md:p-12 flex flex-col gap-12">
             <div className="flex flex-col gap-6 max-w-3xl">
               <span className="eyebrow">
