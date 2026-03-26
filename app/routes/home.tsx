@@ -16,16 +16,9 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-type LogoVariant = "large" | "small";
-
-function LogoMark({ variant = "large" }: { variant?: LogoVariant }) {
-  const sizeClass =
-    variant === "small" ? "px-3 py-2 text-base" : "px-6 py-3.5 text-xl";
-
+function LogoMark() {
   return (
-    <span
-      className={`inline-flex self-start items-center bg-slate-900 text-white ${sizeClass} font-mono font-semibold tracking-tight border border-slate-800`}
-    >
+    <span className="inline-flex self-start items-center text-white text-base font-mono font-semibold tracking-tight leading-none select-none">
       eval(42)
     </span>
   );
@@ -199,13 +192,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen page-shell flex flex-col">
-      <div className="fixed top-4 left-4 z-50 hidden 2xl:block">
-        <LogoMark variant="small" />
+      <div className="fixed top-0 left-0 right-0 py-2 z-50 bg-slate-900 text-white">
+        <div className="px-4 md:px-6 py-2 flex items-center justify-start">
+          <LogoMark />
+        </div>
       </div>
-      <div className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl pt-6 pb-6 flex justify-center block 2xl:hidden">
-        <LogoMark />
-      </div>
-      <main className="flex-1 w-full py-6 2xl:py-16 space-y-12 md:space-y-14">
+      <main className="flex-1 w-full pt-20 md:pt-24 pb-8 space-y-12 md:space-y-14">
         <section className="px-4 md:px-8 lg:px-10 mx-auto max-w-6xl mt-0">
           <div className="soft-panel p-8 md:p-12 flex flex-col gap-12">
             <div className="flex flex-col gap-6 max-w-3xl">
