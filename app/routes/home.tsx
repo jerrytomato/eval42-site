@@ -18,7 +18,7 @@ export function meta({}: Route.MetaArgs) {
 
 function LogoMark() {
   return (
-    <span className="inline-flex self-start items-center text-white text-base font-mono font-semibold tracking-tight leading-none select-none">
+    <span className="inline-flex self-start items-center text-white text-base font-mono font-bold tracking-tight leading-none select-none">
       eval(42)
     </span>
   );
