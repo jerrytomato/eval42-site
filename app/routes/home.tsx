@@ -208,9 +208,8 @@ export default function Home() {
                 Your intuition is hurting the business
               </h1>
               <p className="text-lg md:text-xl text-slate-700 leading-relaxed">
-                High-value scheduling and allocation choices are too complex to
-                make by feel. See the financial impact before the losses become
-                your responsibility.
+                See the financial impact of high-value decisions before the
+                losses become your responsibility.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <button
