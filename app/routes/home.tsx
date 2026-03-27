@@ -285,19 +285,19 @@ export default function Home() {
                 index={1}
                 title="Uncover"
                 subhead="Stop the bleeding"
-                body="We isolate the invisible leaks in your schedule and pricing. You get a clear dollar report of where margin disappears and an ROI target for the next 90 days."
+                body="We isolate exactly where your margin disappears to establish model-backed ROI targets for the next 12 months."
               />
               <StepCard
                 index={2}
-                title="Twin"
-                subhead="Predict the future"
-                body="We build a digital twin to stress-test your next 12 months. See the $100k impact of a price shift or fleet expansion in seconds and pick the winning move without using your bank account as a crash test dummy."
+                title="Simulate"
+                subhead="Stress-test the future"
+                body="Predict the $100k impact of pricing shifts or capacity changes in seconds, and before you commit a single dollar of capital."
               />
               <StepCard
                 index={3}
-                title="Scale"
-                subhead="Capture the growth"
-                body="Deploy high-yield playbooks and guardrails into live ops. Move from defending margin to high-velocity scaling with a system that handles the complexity for you."
+                title="Deploy"
+                subhead="Hard-code the growth"
+                body="Replace expensive guesswork with hard-coded operational guardrails. Move from defending margin to high-velocity scaling on autopilot."
               />
             </div>
             <p className="text-sm text-slate-600">
