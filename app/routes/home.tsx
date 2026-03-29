@@ -7,7 +7,7 @@ import { useIntersectionObserver } from "../utils/useIntersectionObserver";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Stop Gambling the Business on Intuition | Eval 42" },
+    { title: "Stop Staking the Business on Intuition | Eval 42" },
     {
       name: "description",
       content:
